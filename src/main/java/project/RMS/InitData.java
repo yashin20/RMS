@@ -41,7 +41,7 @@ public class InitData {
             request.setNickname("nickname1");
             request.setPhone("010-1111-1111");
             request.setEmail("customer1@example.com");
-            request.setRole(MemberRole.CUSTOMER);
+            request.setRole_string("CUSTOMER");
 
             memberService.createMember(request);
         }

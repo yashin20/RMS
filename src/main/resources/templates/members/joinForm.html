@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Page</title>
+</head>
+<body>
+
+    <h2>회원가입 양식</h2>
+
+    <form th:action="@{/members/join}" th:object="${joinForm}" method="post">
+
+        <!--회원가입시 CUSTOMER 과 SUPPLIER 선택 / 사업자 , 고객-->
+        <div>
+            <input type="radio" th:field="*{role_string}" value="CUSTOMER">고객
+            <input type="radio" th:field="*{role_string}" value="SUPPLIER">사업자
+        </div>
+
+        <div>
+            <input id="join-username" th:field="*{username}" type="text" required>
+            <label for="join-username">Username</label>
+        </div>
+
+        <div>
+            <input id="join-password" th:field="*{password}" type="password" required>
+            <label for="join-password">Password</label>
+        </div>
+
+        <div>
+            <input id="join-nickname" th:field="*{nickname}" type="text" required>
+            <label for="join-nickname">Nickname</label>
+        </div>
+
+        <div>
+            <input id="join-phone" th:field="*{phone}" type="text" required>
+            <label for="join-phone">Phone</label>
+        </div>
+
+        <div>
+            <input id="join-email" th:field="*{email}" type="email" required>
+            <label for="join-email">E-Mail</label>
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+
+        <!-- Error message -->
+        <div th:if="${errorMessage}">
+            <p th:text="${errorMessage}">Error message here</p>
+        </div>
+
+        <!-- Error message -->
+        <div th:if="${bindingResult}">
+            <p th:text="${bindingResult}">Error message here</p>
+        </div>
+
+    </form>
+
+</body>
+</html>

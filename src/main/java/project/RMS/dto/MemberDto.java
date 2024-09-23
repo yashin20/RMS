@@ -11,7 +11,7 @@ public class MemberDto {
     @Data
     public static class Request {
 
-        // 회원 생성 : 'username', 'password', 'phone', 'nickname', 'email'
+        // 회원 생성 : 'username', 'password', 'phone', 'nickname', 'email', 'role'
         public interface Create {}
 
 
@@ -43,7 +43,14 @@ public class MemberDto {
         @NotBlank(groups = {Create.class}, message = "이메일은 필수 입력 값입니다.")
         private String email;
 
-        private MemberRole role;
+        private String role_string;
+
+        //MemberRole 부여
+        public MemberRole grantRole(String role_string) {
+            if (role_string.equals("CUSTOMER")) return MemberRole.CUSTOMER;
+            else if (role_string.equals("SUPPLIER")) return MemberRole.SUPPLIER;
+            else return null;
+        }
 
         //create member 시 사용
         public Member toEntity() {
@@ -54,7 +61,7 @@ public class MemberDto {
                     this.nickname,
                     this.phone,
                     this.email,
-                    this.role
+                    grantRole(this.role_string)
             );
         }
 
