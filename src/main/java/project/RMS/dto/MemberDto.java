@@ -43,6 +43,7 @@ public class MemberDto {
         @NotBlank(groups = {Create.class}, message = "이메일은 필수 입력 값입니다.")
         private String email;
 
+        @NotBlank(groups = {Create.class}, message = "권한은 필수 선택 값입니다.")
         private String role_string;
 
         //MemberRole 부여

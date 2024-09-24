@@ -4,11 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.RMS.dto.MemberDto;
 import project.RMS.exception.DataAlreadyExistsException;
 import project.RMS.service.MemberService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/members")
@@ -53,7 +57,37 @@ public class MemberController {
 
         /* '유효성 검사' 에러처리 */
         if (bindingResult.hasErrors()) {
-            model.addAttribute("bindingResult", bindingResult);
+
+            FieldError usernameError = bindingResult.getFieldError("username");
+            if (usernameError != null) {
+                model.addAttribute("usernameErrorMessage", usernameError.getDefaultMessage());
+            }
+
+            FieldError passwordError = bindingResult.getFieldError("password");
+            if (passwordError != null) {
+                model.addAttribute("passwordErrorMessage", passwordError.getDefaultMessage());
+            }
+
+            FieldError nicknameError = bindingResult.getFieldError("nickname");
+            if (nicknameError != null) {
+                model.addAttribute("nicknameErrorMessage", nicknameError.getDefaultMessage());
+            }
+
+            FieldError phoneError = bindingResult.getFieldError("phone");
+            if (phoneError != null) {
+                model.addAttribute("phoneErrorMessage", phoneError.getDefaultMessage());
+            }
+
+            FieldError emailError = bindingResult.getFieldError("email");
+            if (emailError != null) {
+                model.addAttribute("emailErrorMessage", emailError.getDefaultMessage());
+            }
+
+            FieldError role_stringError = bindingResult.getFieldError("role_string");
+            if (role_stringError != null) {
+                model.addAttribute("role_stringErrorMessage", role_stringError.getDefaultMessage());
+            }
+
             return "members/joinForm";
         }
 
@@ -61,7 +95,7 @@ public class MemberController {
             //회원강비 로직
             memberService.createMember(dto);
         }
-        /* '중복 검사' + 'PW 이중검사' 에러처리 */
+        /* '중복 검사' 에러처리 */
         catch (DataAlreadyExistsException ex) {
             bindingResult.reject("errorMessage", ex.getMessage());
             model.addAttribute("errorMessage", ex.getMessage());
