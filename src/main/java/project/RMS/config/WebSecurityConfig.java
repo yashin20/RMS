@@ -1,6 +1,7 @@
 package project.RMS.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     // PasswordEncoder Bean 등록 - password 암호화 (방식 - BCryptPasswordEncoder)
     @Bean
@@ -50,6 +54,7 @@ public class WebSecurityConfig {
                                 .defaultSuccessUrl("/", true)
                                 .permitAll()
                 )
+                .userDetailsService(customUserDetailsService)
                 .logout(logout ->
                         logout
                                 .logoutUrl("/logout") //로그아웃 처리 URL

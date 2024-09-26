@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Reservation {
+public class Reservation extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "reservation_id")
@@ -27,12 +27,12 @@ public class Reservation {
     @JoinColumn(name = "room_id")
     private Room room;
 
-    //YYYY_MM_DD_HH (예약 시작 시간 ~ +4)
+    //yyyy-MM-dd_HH:mm (예약 시작 시간 ~ +4)
     private String resTime;
 
     // 예약 시간 추가하기
     public String addReservation(LocalDateTime date) {
-        SimpleDateFormat customFormat = new SimpleDateFormat("yyyy_MM_dd_HH");
+        SimpleDateFormat customFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
         return customFormat.format(date);
     }
 }

@@ -1,6 +1,8 @@
 package project.RMS.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,6 +65,13 @@ public class MemberService {
 
     public Member getMemberByUsername(String username) {
         return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new DataNotFoundException("존재하지 않는 회원 입니다."));
+    }
+
+    /** 현재 로그인 회원*/
+    public Member getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return memberRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new DataNotFoundException("존재하지 않는 회원 입니다."));
     }
 

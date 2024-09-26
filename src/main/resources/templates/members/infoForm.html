@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Information Page</title>
+</head>
+<body>
+
+<h2>회원 정보 페이지</h2>
+
+<div>
+    <input id="info-username" th:field="*{responseDto.username}" type="text" required="" readonly>
+    <label for="info-username">Username</label>
+</div>
+
+<div>
+    <input id="info-nickname" th:field="*{responseDto.nickname}" type="text" required="" readonly>
+    <label for="info-nickname">Nickname</label>
+</div>
+
+<div>
+    <input id="info-phone" th:field="*{responseDto.phone}" type="text" required="" readonly>
+    <label for="info-phone">Phone</label>
+</div>
+
+<div>
+    <input id="info-email" th:field="*{responseDto.email}" type="text" required="" readonly>
+    <label for="info-email">E-Mail</label>
+</div>
+
+<div>
+    <input id="info-createdAt" th:field="*{responseDto.createdAt}" type="text" required="" readonly>
+    <label for="info-createdAt">생성일자</label>
+</div>
+
+<div>
+    <input id="info-updatedAt" th:field="*{responseDto.updatedAt}" type="text" required="" readonly>
+    <label for="info-updatedAt">수정일자</label>
+</div>
+
+<div>
+    <input id="info-role" th:field="*{responseDto.role_string}" type="text" required="" readonly>
+    <label for="info-role">권한</label>
+</div>
+
+<!--권한에 따라 호텔 목록 보여지는 여부 다르게-->
+<div th:if="${#strings.equals(responseDto.role_string, 'SUPPLIER')}">
+<table>
+    <thead>
+    <tr>
+        <th>Hotel ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hotel : ${responseDto.getHotelList()}">
+        <td th:text="${hotel.hotelId}"></td>
+        <td th:text="${hotel.name}"></td>
+        <td th:text="${hotel.address}"></td>
+        <td th:text="${hotel.phone}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+<!--버튼 2개-->
+<a href="/">호텔 등록하기</a>
+<a href="/">회원 정보 수정하기</a>
+
+</body>
+</html>

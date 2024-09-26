@@ -5,22 +5,24 @@
     <title>Login Page</title>
 </head>
 <body>
+    <!--header-->
+    <header class="header" th:replace="~{fragments/header :: header}"></header>
 
 
     <form th:action="@{/login}" th:object="${loginForm}" method="post">
 
         <h2>Login</h2>
 
-        <input id ="login-username" th:field="*{username}" type="text" placeholder="username" required="">
+        <input id ="login-username" name="username" th:field="*{username}" type="text" placeholder="Username" required="">
         <label for="login-username">Username</label>
 
-        <input id="login-password" th:field="*{password}" type="password" placeholder="Password" autocomplete="off" required="">
+        <input id="login-password" name="password" th:field="*{password}" type="password" placeholder="Password" autocomplete="off" required="">
         <label for="login-password">Password</label>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit">Login</button>
 
         <!-- Error message -->
-        <div th:if="${errorMessage}">
+        <div th:if="${errorMessage}" style="color: red;">
             <p class="text-danger" th:text="${errorMessage}">Error message here</p>
         </div>
 

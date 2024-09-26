@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -30,7 +30,7 @@ public class Member {
     private MemberRole role;
 
     @OneToMany(mappedBy = "member")
-    private List<Accommodation> accList = new ArrayList<>();
+    private List<Hotel> hotels = new ArrayList<>();
 
     public Member(Long id, String username, String password, String nickname, String phone, String email, MemberRole role) {
         this.id = id;

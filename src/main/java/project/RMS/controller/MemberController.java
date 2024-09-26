@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.RMS.dto.MemberDto;
+import project.RMS.entity.Member;
 import project.RMS.exception.DataAlreadyExistsException;
 import project.RMS.service.MemberService;
 
@@ -104,5 +105,20 @@ public class MemberController {
         }
 
         return "redirect:/";
+    }
+
+    /**
+     * 회원 정보 조회
+     */
+    @GetMapping("/info")
+    public String memberInformation(Model model) {
+        //1. 현재 로그인된 회원 가져오기
+        Member currentMember = memberService.getCurrentMember();
+
+        //2. Entity -> Dto
+        MemberDto.Response response = new MemberDto.Response(currentMember);
+        model.addAttribute("responseDto", response);
+
+        return "members/infoForm";
     }
 }

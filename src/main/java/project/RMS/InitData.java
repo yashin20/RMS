@@ -26,22 +26,36 @@ public class InitData {
     public void init() {initMemberService.init();}
 
     @Component
+    @RequiredArgsConstructor
     static class InitMemberService {
         @PersistenceContext
         private EntityManager em;
-        @Autowired private PasswordEncoder passwordEncoder;
-        @Autowired private MemberService memberService;
+        private final PasswordEncoder passwordEncoder;
+        private final MemberService memberService;
 
         @Transactional
         public void init() {
+            //customer1 생성
+            createTestMember("member1", "1234", "CUSTOMER");
+
+            //customer2 생성
+            createTestMember("member2", "1234", "CUSTOMER");
+
+            //supplier1 생성
+            createTestMember("member3", "1234", "SUPPLIER");
+
+            //ADMIN 생성
+
+        }
+
+        public void createTestMember(String username, String password, String role) {
             MemberDto.Request request = new MemberDto.Request();
-            request.setUsername("customer1");
-//            request.setPassword(passwordEncoder.encode("1q2w3e4r~!"));
-            request.setPassword("1234");
-            request.setNickname("nickname1");
+            request.setUsername(username);
+            request.setPassword(password);
+            request.setNickname("custom_nickname");
             request.setPhone("010-1111-1111");
-            request.setEmail("customer1@example.com");
-            request.setRole_string("CUSTOMER");
+            request.setEmail("testData@example.com");
+            request.setRole_string(role);
 
             memberService.createMember(request);
         }

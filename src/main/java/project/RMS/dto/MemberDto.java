@@ -6,6 +6,10 @@ import lombok.Data;
 import project.RMS.entity.Member;
 import project.RMS.entity.MemberRole;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class MemberDto {
 
     @Data
@@ -39,7 +43,7 @@ public class MemberDto {
 
         @Pattern(regexp = "^(?:\\w+\\.?)*\\w+@(?:\\w+\\.)+\\w+$",
                 groups = {Create.class},
-                message = "전화번호 형식이 올바르지 않습니다.")
+                message = "이메일 형식이 올바르지 않습니다.")
         @NotBlank(groups = {Create.class}, message = "이메일은 필수 입력 값입니다.")
         private String email;
 
@@ -71,9 +75,35 @@ public class MemberDto {
     @Data
     public static class Response {
         private Long memberId;
+
         private String username;
-        private String password;
+        private String nickname;
         private String phone;
-        private String hotelAddress;
+        private String email;
+        private String createdAt;
+        private String updatedAt;
+        private String role_string;
+
+        private List<HotelDto.Response> hotelList = new ArrayList<>();
+
+        //Entity -> Dto
+        public Response(Member member) {
+            this.memberId = member.getId();
+            this.username = member.getUsername();
+            this.nickname = member.getNickname();
+            this.phone = member.getPhone();
+            this.email = member.getEmail();
+            this.createdAt = member.getCreatedAt();
+            this.updatedAt = member.getUpdatedAt();
+            this.role_string = member.getRole().name();
+
+            if (role_string.equals("CUSTOMER")) {
+                this.hotelList = null;
+            } else if (role_string.equals("SUPPLIER")) {
+                this.hotelList = member.getHotels().stream()
+                                        .map(HotelDto.Response::new).
+                                        collect(Collectors.toList());
+            }
+        }
     }
 }
