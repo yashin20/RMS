@@ -44,7 +44,7 @@
 </div>
 
 <!--권한에 따라 호텔 목록 보여지는 여부 다르게-->
-<div th:if="${#strings.equals(responseDto.role_string, 'SUPPLIER')}">
+<div th:if="${#strings.equals(responseDto.role_string, 'SUPPLIER') && responseDto.getHotelList().size() != 0}">
 <table>
     <thead>
     <tr>
@@ -64,6 +64,11 @@
     </tbody>
 </table>
 </div>
+
+<div th:if="${responseDto.getHotelList().size() == 0}">
+    <p>등록된 호텔이 존재하지 않습니다.</p>
+</div>
+
 
 <!--버튼 2개-->
 <a href="/">호텔 등록하기</a>
