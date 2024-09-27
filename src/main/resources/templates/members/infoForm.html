@@ -43,6 +43,8 @@
     <label for="info-role">권한</label>
 </div>
 
+
+<h4>호텔 리스트</h4>
 <!--권한에 따라 호텔 목록 보여지는 여부 다르게-->
 <div th:if="${#strings.equals(responseDto.role_string, 'SUPPLIER') && responseDto.getHotelList().size() != 0}">
 <table>
@@ -57,7 +59,9 @@
     <tbody>
     <tr th:each="hotel : ${responseDto.getHotelList()}">
         <td th:text="${hotel.hotelId}"></td>
-        <td th:text="${hotel.name}"></td>
+        <td>
+            <a th:text="${hotel.name}" th:href="@{|/hotels/${hotel.hotelId}|}"></a>
+        </td>
         <td th:text="${hotel.address}"></td>
         <td th:text="${hotel.phone}"></td>
     </tr>

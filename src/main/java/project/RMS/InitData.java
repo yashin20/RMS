@@ -16,6 +16,7 @@ import project.RMS.entity.Member;
 import project.RMS.entity.MemberRole;
 import project.RMS.service.HotelService;
 import project.RMS.service.MemberService;
+import project.RMS.service.RoomService;
 
 //Test Data 주입
 @Profile("local")
@@ -36,6 +37,7 @@ public class InitData {
         private final PasswordEncoder passwordEncoder;
         private final MemberService memberService;
         private final HotelService hotelService;
+        private final RoomService roomService;
 
         @Transactional
         public void init() {

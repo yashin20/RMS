@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +20,10 @@ public class Hotel extends BaseEntity {
     private String name;
     private String address;
     private String phone;
+
+    //호텔 소속 객실 리스트
+    @OneToMany(mappedBy = "hotel")
+    private List<Room> roomList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

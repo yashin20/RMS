@@ -98,7 +98,7 @@ public class MemberDto {
             this.role_string = member.getRole().name();
 
             if (role_string.equals("CUSTOMER")) {
-                this.hotelList = null;
+                this.hotelList = new ArrayList<>();
             } else if (role_string.equals("SUPPLIER")) {
                 this.hotelList = member.getHotels().stream()
                                         .map(HotelDto.Response::new).

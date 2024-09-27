@@ -5,6 +5,10 @@ import lombok.Data;
 import project.RMS.entity.Hotel;
 import project.RMS.entity.Member;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HotelDto {
 
     @Data
@@ -45,11 +49,17 @@ public class HotelDto {
         private String address;
         private String phone;
 
+        private List<RoomDto.Response> roomList = new ArrayList<>();
+
         public Response(Hotel hotel) {
             this.hotelId = hotel.getId();
             this.name = hotel.getName();
             this.address = hotel.getAddress();
             this.phone = hotel.getPhone();
+
+            this.roomList = hotel.getRoomList().stream()
+                    .map(RoomDto.Response::new)
+                    .collect(Collectors.toList());
         }
     }
 }
