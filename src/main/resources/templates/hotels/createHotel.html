@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>신규 호텔 등록 페이지</title>
+</head>
+<body>
+
+<h2>신규 호텔 등록</h2>
+
+<form th:action="@{/hotels/new}" th:object="${createHotelForm}" method="post">
+
+    <div>
+        <input id="new-hotel-name" th:field="*{name}" type="text" required>
+        <label for="new-hotel-name">Hotel Name</label>
+
+        <!-- Error message -->
+        <div th:if="${nameErrorMessage}" style="color: red;">
+            <p th:text="${nameErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+    <div>
+        <input id="new-hotel-address" th:field="*{address}" type="text" required>
+        <label for="new-hotel-address">Hotel Address</label>
+
+        <!-- Error message -->
+        <div th:if="${addressErrorMessage}" style="color: red;">
+            <p th:text="${addressErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+    <div>
+        <input id="new-hotel-phone" th:field="*{phone}" type="text" required>
+        <label for="new-hotel-phone">Hotel Phone</label>
+
+        <!-- Error message -->
+        <div th:if="${phoneErrorMessage}" style="color: red;">
+            <p th:text="${phoneErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+
+</body>
+</html>

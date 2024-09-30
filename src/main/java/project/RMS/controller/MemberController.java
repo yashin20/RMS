@@ -93,7 +93,7 @@ public class MemberController {
         }
 
         try {
-            //회원강비 로직
+            //회원가입 로직
             memberService.createMember(dto);
         }
         /* '중복 검사' 에러처리 */

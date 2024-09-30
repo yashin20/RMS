@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.RMS.dto.HotelDto;
+import project.RMS.dto.MemberDto;
 import project.RMS.entity.Hotel;
+import project.RMS.exception.DataAlreadyExistsException;
 import project.RMS.exception.DataNotFoundException;
 import project.RMS.repository.HotelRepository;
 
@@ -20,8 +22,19 @@ public class HotelService {
      */
     @Transactional
     public Hotel createHotel (HotelDto.Request dto) {
+
+        /*1. name 중복 검사*/
+        duplicateValidation(dto);
+
         Hotel entity = dto.toEntity();
         return hotelRepository.save(entity);
+    }
+
+    /*중복 검사 (name : 호텔명)*/
+    public void duplicateValidation(HotelDto.Request dto) {
+        if (hotelRepository.findByName(dto.getName()).isPresent()){
+            throw new DataAlreadyExistsException("이미 존재하는 호텔명(Name) 입니다.");
+        }
     }
 
     /**
