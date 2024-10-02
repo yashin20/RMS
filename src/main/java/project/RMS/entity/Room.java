@@ -18,9 +18,9 @@ public class Room extends BaseEntity {
     private Long id;
 
     private String code; //room code
-    private Integer price; //4시간 기준
-    private Integer headcount; //최대 인원
-    private Boolean isReserved; //현재 예약 상태
+    private String price; //4시간 기준
+    private int headcount; //최대 인원
+    private Boolean isReserved = false; //현재 예약 상태
 
     //소속호텔
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,9 +36,10 @@ public class Room extends BaseEntity {
         if (isReserved) isReserved = false;
     }
 
-    public Room(String code, Integer price, Integer headcount) {
+    public Room(String code, String price, int headcount, Hotel hotel) {
         this.code = code;
         this.price = price;
         this.headcount = headcount;
+        this.hotel = hotel;
     }
 }

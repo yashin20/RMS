@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>객실 생성 페이지</title>
+</head>
+<body>
+
+<h2>객실 생성 페이지</h2>
+
+<form th:action="@{|/rooms/${hotelId}/new|}" th:object="${createRoomForm}" method="post">
+
+    <div>
+        <input id="new-room-code" th:field="*{code}" type="text" required>
+        <label for="new-room-code">Room Code</label>
+
+        <!-- Error message -->
+        <div th:if="${codeErrorMessage}" style="color: red;">
+            <p th:text="${codeErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+    <div>
+        <input id="new-room-price" th:field="*{price}" type="text" required>
+        <label for="new-room-price">Price(4Hour)</label>
+
+        <!-- Error message -->
+        <div th:if="${priceErrorMessage}" style="color: red;">
+            <p th:text="${priceErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+    <div>
+        <input id="new-room-headcount" th:field="*{headcount}" type="text" required>
+        <label for="new-room-headcount">Headcount</label>
+
+        <!-- Error message -->
+        <div th:if="${headcountErrorMessage}" style="color: red;">
+            <p th:text="${headcountErrorMessage}">Error message here</p>
+        </div>
+    </div>
+
+
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+
+</body>
+</html>

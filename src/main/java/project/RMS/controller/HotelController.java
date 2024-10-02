@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.RMS.dto.HotelDto;
-import project.RMS.dto.MemberDto;
 import project.RMS.entity.Hotel;
 import project.RMS.exception.DataAlreadyExistsException;
 import project.RMS.service.HotelService;
